@@ -3,13 +3,15 @@ import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
+const availableData = [
+  { currency: "USD", src: "united-states.png", alt: " United States Flag" },
+  { currency: "CZK", src: "czech-republic.png", alt: " Czech Republic Flag" },
+  { currency: "EUR", src: "european-union.png", alt: " European Union Flag" },
+];
+
 export default function SelectComponent() {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState({
-    currency: "USD",
-    src: "united-states.png",
-    alt: " United States Flag",
-  });
+  const [selected, setSelected] = useState(availableData[0]);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -26,11 +28,11 @@ export default function SelectComponent() {
     [searchParams]
   );
 
-  const availableData = [
-    { currency: "USD", src: "united-states.png", alt: " United States Flag" },
-    { currency: "CZK", src: "czech-republic.png", alt: " Czech Republic Flag" },
-    { currency: "EUR", src: "european-union.png", alt: " European Union Flag" },
-  ];
+  useEffect(() => {
+    router.push(
+      pathname + "?" + createQueryString("currency", `${selected.currency}`)
+    );
+  });
 
   return (
     <div className="absolute top-4 w-full flex flex-col items-center">
@@ -56,11 +58,6 @@ export default function SelectComponent() {
             onClick={() => {
               setSelected(data);
               setOpen(false);
-              router.push(
-                pathname +
-                  "?" +
-                  createQueryString("currency", `${selected.currency}`)
-              );
             }}
           >
             <Image

@@ -31,9 +31,7 @@ export default function InputComponent() {
     /* useEffect*/
   }
   useEffect(() => {
-    if (count != "") {
-      router.push(pathname + "?" + createQueryString("amount", `${count}`));
-    }
+    router.push(pathname + "?" + createQueryString("amount", `${count}`));
   }, [count]);
   {
     /* onChange Handler */
