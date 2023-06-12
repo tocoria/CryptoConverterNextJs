@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { VariableContext } from "./variable-provider";
 
 export default function InputComponent() {
   {
@@ -10,10 +11,12 @@ export default function InputComponent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams().toString();
+
   {
     /* useState */
   }
   const [count, setCount] = useState("");
+  const { variables, setVariables } = useContext(VariableContext);
   {
     /* Function to update query */
   }
@@ -38,6 +41,7 @@ export default function InputComponent() {
   }
   function handleChange(event: any) {
     setCount(event.target.value);
+    console.log(variables);
   }
 
   return (
