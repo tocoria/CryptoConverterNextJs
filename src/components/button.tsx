@@ -1,7 +1,6 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { VariableContext } from "./variable-provider";
 
@@ -34,8 +33,6 @@ export default function ButtonComponent() {
       resultADA: result.ada,
       result: Number(fullResult.toFixed(2)),
     });
-
-    console.log(variables);
   }
 
   return (

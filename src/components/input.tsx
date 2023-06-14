@@ -1,15 +1,11 @@
 "use client";
-import { useEffect, useState, useCallback, useContext } from "react";
+import { useContext } from "react";
 
 import { VariableContext } from "./variable-provider";
 
 export default function InputComponent() {
   const context = useContext(VariableContext)!;
   const { variables, setVariables } = context;
-
-  useEffect(() => {
-    console.log(variables.amount);
-  }, []);
 
   async function handleChange(event: any) {
     setVariables({ ...variables, amount: Number(event.target.value) });
