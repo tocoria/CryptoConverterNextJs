@@ -5,6 +5,7 @@ import React, { useState, createContext, ReactNode } from "react";
 interface MyVariableType {
   amount: number;
   currency: string;
+  resultADA: number;
   result: number;
 }
 
@@ -23,9 +24,10 @@ export default function VariableProvider({
   children: ReactNode;
 }) {
   const [variables, setVariables] = useState<MyVariableType>({
-    amount: 1,
+    amount: 0,
     currency: "USD",
-    result: 1,
+    resultADA: 0,
+    result: 0,
   });
 
   const contextValue: MyContextType = {
