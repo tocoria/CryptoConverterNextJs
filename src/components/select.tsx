@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect, useCallback } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useState, useEffect, useContext } from "react";
+
+import { VariableContext } from "../components/variable-provider";
 
 const availableData = [
   { currency: "USD", src: "united-states.png", alt: " United States Flag" },
@@ -12,27 +13,12 @@ const availableData = [
 export default function SelectComponent() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(availableData[0]);
-
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams().toString();
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
+  const context = useContext(VariableContext)!;
+  const { variables, setVariables } = context;
 
   useEffect(() => {
-    router.push(
-      pathname + "?" + createQueryString("currency", `${selected.currency}`)
-    );
-  });
+    setVariables({ ...variables, currency: selected.currency });
+  }, [selected.currency]);
 
   return (
     <div className="absolute top-4 w-full flex flex-col items-center">
