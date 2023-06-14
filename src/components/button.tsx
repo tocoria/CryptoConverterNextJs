@@ -30,7 +30,7 @@ export default function ButtonComponent() {
     setVariables({
       ...variables,
       resultADA: result.ada,
-      result: Object.values(result)[1],
+      result: Number(Object.values(result)[1]),
     });
 
     console.log(variables);

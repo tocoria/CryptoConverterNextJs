@@ -18,8 +18,6 @@ export default function SelectComponent() {
 
   useEffect(() => {
     setVariables({ ...variables, currency: selected.currency });
-
-    console.log(selected.currency);
   }, [selected.currency]);
 
   return (
