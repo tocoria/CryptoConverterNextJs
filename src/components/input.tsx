@@ -16,7 +16,10 @@ export default function InputComponent() {
     /* useState */
   }
   const [count, setCount] = useState("");
-  const { variables, setVariables } = useContext(VariableContext);
+  const context = useContext(VariableContext)!;
+
+  const { variables, setVariables } = context;
+
   {
     /* Function to update query */
   }
@@ -41,7 +44,9 @@ export default function InputComponent() {
   }
   function handleChange(event: any) {
     setCount(event.target.value);
-    console.log(variables);
+    console.log(variables.amount, typeof variables.amount);
+    setVariables({ ...variables, amount: 250 });
+    console.log(variables.amount);
   }
 
   return (

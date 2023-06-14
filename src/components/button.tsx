@@ -1,6 +1,10 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 
+import { useContext, useState } from "react";
+
+import { VariableContext } from "./variable-provider";
+
 export default function ButtonComponent() {
   const params = useSearchParams();
 

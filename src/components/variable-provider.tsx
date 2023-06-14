@@ -1,18 +1,40 @@
 "use client";
 
-import { useState, createContext, ReactNode } from "react";
+import React, { useState, createContext, ReactNode } from "react";
 
-export const VariableContext = createContext({});
+interface MyVariableType {
+  amount: number;
+  currency: string;
+  result: number;
+}
+
+interface MyContextType {
+  variables: MyVariableType;
+  setVariables: React.Dispatch<React.SetStateAction<MyVariableType>>;
+}
+
+export const VariableContext = createContext<MyContextType | undefined>(
+  undefined
+);
 
 export default function VariableProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [variables, setVariables] = useState(10);
+  const [variables, setVariables] = useState<MyVariableType>({
+    amount: 1,
+    currency: "USD",
+    result: 1,
+  });
+
+  const contextValue: MyContextType = {
+    variables,
+    setVariables,
+  };
 
   return (
-    <VariableContext.Provider value={{ variables, setVariables }}>
+    <VariableContext.Provider value={contextValue}>
       {children}
     </VariableContext.Provider>
   );
