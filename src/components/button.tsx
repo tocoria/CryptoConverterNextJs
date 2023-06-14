@@ -27,10 +27,12 @@ export default function ButtonComponent() {
   async function handleClick() {
     const result = await postData(variables.currency, variables.amount);
 
+    const fullResult = Object.values(result)[1] as number;
+
     setVariables({
       ...variables,
       resultADA: result.ada,
-      result: Number(Object.values(result)[1]),
+      result: Number(fullResult.toFixed(2)),
     });
 
     console.log(variables);
