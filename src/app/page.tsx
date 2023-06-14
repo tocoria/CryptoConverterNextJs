@@ -12,6 +12,10 @@ const ButtonComponent = dynamic(() => import("../components/button"), {
   ssr: false,
 });
 
+import Image from "next/image";
+
+const OutputComponent = dynamic(() => import("../components/output"));
+
 export default function Home() {
   return (
     <main className="bg-gray h-screen flex items-center justify-center">
@@ -21,17 +25,24 @@ export default function Home() {
         {/* INPUT */}
         <section className="w-5/6 border border-gray h-20 rounded-lg flex items-center">
           <InputComponent />
-          <div className="h-full">
+          <div className="h-full flex w-4/12">
             <div className="border border-gray h-full"></div>
-            <div></div>
+            <div className="bg-black text-white w-11/12 p-2 flex items-center justify-center">
+              <Image
+                src={`/flags/argentina.png`}
+                width={30}
+                height={30}
+                alt="Argentina Flag"
+                className="mx-1"
+              />
+              <span>ARS</span>
+            </div>
           </div>
         </section>
 
         {/* OUTPUT */}
         <section className="w-5/6 border border-gray h-20 rounded-lg flex items-center">
-          <div className="w-8/12 h-4/6 bg-black text-white text-2xl font-bold px-3 flex items-center">
-            1323648
-          </div>
+          <OutputComponent />
           <div className="h-full flex w-4/12 relative">
             <div className="border border-gray h-full"></div>
             <SelectComponent />

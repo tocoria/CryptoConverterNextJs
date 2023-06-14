@@ -1,43 +1,14 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useContext } from "react";
 
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { VariableContext } from "./variable-provider";
 
 export default function InputComponent() {
-  {
-    /* Variables */
-  }
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams().toString();
-  {
-    /* useState */
-  }
-  const [count, setCount] = useState("");
-  {
-    /* Function to update query */
-  }
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
+  const context = useContext(VariableContext)!;
+  const { variables, setVariables } = context;
 
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
-  {
-    /* useEffect*/
-  }
-  useEffect(() => {
-    router.push(pathname + "?" + createQueryString("amount", `${count}`));
-  }, [count]);
-  {
-    /* onChange Handler */
-  }
-  function handleChange(event: any) {
-    setCount(event.target.value);
+  async function handleChange(event: any) {
+    setVariables({ ...variables, amount: Number(event.target.value) });
   }
 
   return (

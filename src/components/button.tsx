@@ -1,34 +1,38 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+
+import { useContext } from "react";
+
+import { VariableContext } from "./variable-provider";
 
 export default function ButtonComponent() {
-  const params = useSearchParams();
-
-  const queryCurrency = params.get("currency")?.toLowerCase();
-
-  const queryAmount = Number(params.get("amount"));
+  const context = useContext(VariableContext)!;
+  const { variables, setVariables } = context;
 
   async function postData(currency: string, amount: number) {
-    if (params) {
-      console.log(currency);
-
-      const data = await fetch(`http://localhost:3500/api/${currency}`, {
+    const data = await fetch(
+      `http://localhost:3500/api/${currency.toLowerCase()}`,
+      {
         method: "POST",
         cache: "no-cache",
         body: JSON.stringify({
           amount: amount,
         }),
-      });
+      }
+    );
 
-      return data.json();
-    }
+    return data.json();
   }
 
   async function handleClick() {
-    if (queryCurrency && queryAmount) {
-      const response = await postData(queryCurrency, queryAmount);
-      console.log(response);
-    }
+    const result = await postData(variables.currency, variables.amount);
+
+    const fullResult = Object.values(result)[1] as number;
+
+    setVariables({
+      ...variables,
+      resultADA: result.ada,
+      result: Number(fullResult.toFixed(2)),
+    });
   }
 
   return (
