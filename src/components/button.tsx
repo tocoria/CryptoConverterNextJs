@@ -10,7 +10,7 @@ export default function ButtonComponent() {
 
   async function postData(currency: string, amount: number) {
     const data = await fetch(
-      `https://biyu-ya.vercel.app/api/${currency.toLowerCase()}`,
+      `${process.env.NEXT_PUBLIC_BASEPATH}/api/${currency.toLowerCase()}`,
       {
         method: "POST",
         cache: "no-cache",
